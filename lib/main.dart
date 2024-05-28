@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/authentication/auth_controller.dart';
+import 'package:stasis/ui/auth/auth_screen.dart';
 import 'package:stasis/ui/common/error_loader.dart';
+import 'package:stasis/ui/home_screen.dart';
 
 import 'utils/firebase_utils/firebase_options.dart';
 
@@ -25,7 +27,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       home: ref.watch(authStateChangeProvider).when(
           data: (data) {
-            return const Text("this isapp");
+            if (data != null) {
+              return const HomeScreen();
+            }
+            return const AuthScreen();
           },
           error: (error, _) => ErrorText(error.toString()),
           loading: () => const Loader()),
