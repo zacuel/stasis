@@ -1,29 +1,33 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stasis/features/authentication/auth_controller.dart';
 
 import 'utils/firebase_utils/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.web);
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const Placeholder(),
+      home: ref.watch(authStateChangeProvider).when(
+          data: (data) {
+            return const Placeholder();
+          },
+          error: (error, _) => const Placeholder(),
+          loading: () => const Placeholder()),
     );
   }
 }
-
