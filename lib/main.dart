@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/authentication/auth_controller.dart';
+import 'package:stasis/ui/common/error_loader.dart';
 
 import 'utils/firebase_utils/firebase_options.dart';
 
@@ -24,10 +25,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       home: ref.watch(authStateChangeProvider).when(
           data: (data) {
-            return const Placeholder();
+            return const Text("this isapp");
           },
-          error: (error, _) => const Placeholder(),
-          loading: () => const Placeholder()),
+          error: (error, _) => ErrorText(error.toString()),
+          loading: () => const Loader()),
     );
   }
 }
