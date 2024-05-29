@@ -25,6 +25,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "stasis",
       home: ref.watch(authStateChangeProvider).when(
           data: (data) {
             if (data != null) {
