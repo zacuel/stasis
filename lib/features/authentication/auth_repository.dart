@@ -37,12 +37,13 @@ class AuthRepository {
 
   CollectionReference get _people => _firestore.collection('people');
 
-  FutureEitherFailureOr<Person> signUp(String email, String password, String alias) async {
+//NOTE used to be Person, not void, and _ref was used in the controller to set the personProvider. removed because it happens in main.
+  FutureEitherFailureOr<void> signUp(String email, String password, String alias) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       final person = Person(uid: userCredential.user!.uid, alias: alias, favoriteColor: randomColor, favoriteArticleIds: []);
       await _people.doc(person.uid).set(person.toMap());
-      return right(person);
+      return right(null);
     } on FirebaseException catch (e) {
       return left(Failure(e.message!));
     } catch (e) {
@@ -54,11 +55,11 @@ class AuthRepository {
     return _people.doc(uid).snapshots().map((event) => Person.fromMap(event.data() as Map<String, dynamic>));
   }
 
-  FutureEitherFailureOr<Person> logIn(String email, String password) async {
+  FutureEitherFailureOr<void> logIn(String email, String password) async {
     try {
       final userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      final person = await getPersonData(userCredential.user!.uid).first;
-      return right(person);
+      // final person = await getPersonData(userCredential.user!.uid).first;
+      return right(null);
     } on FirebaseException catch (e) {
       return left(Failure(e.message!));
     } catch (e) {

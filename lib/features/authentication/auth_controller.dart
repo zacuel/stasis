@@ -36,7 +36,7 @@ class AuthController extends StateNotifier<bool> {
     final result = await _authRepository.signUp(email, password, alias);
     state = false;
     result.fold((l) => showSnackBar(context, l.message), (r) {
-      _ref.read(personProvider.notifier).update((state) => r);
+      // _ref.read(personProvider.notifier).update((state) => r);
     });
   }
 
@@ -45,7 +45,9 @@ class AuthController extends StateNotifier<bool> {
     final result = await _authRepository.logIn(email, password);
     state = false;
     result.fold((l) => showSnackBar(context, l.message), (r) {
-      _ref.read(personProvider.notifier).update((state) => r);
+      // _ref.read(personProvider.notifier).update((state) => r);
     });
   }
+
+    Stream<Person> getPersonData(String uid) => _authRepository.getPersonData(uid);
 }
