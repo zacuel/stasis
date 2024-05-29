@@ -8,8 +8,13 @@ import '../../models/scope_enum.dart';
 import '../../utils/snackybar.dart';
 import '../authentication/auth_controller.dart';
 
+final articleFeedProvider = StreamProvider<List<Article>>((ref) {
+  final articlesController = ref.read(articlesControllerProvider.notifier); 
+  return articlesController.articleFeed;
+});
+
 final articlesControllerProvider = StateNotifierProvider<ArticlesController, bool>((ref) {
-  final articleRepository = ref.watch(articlesRepositoryProvider);
+  final articleRepository = ref.read(articlesRepositoryProvider);
   return ArticlesController(articlesRepository: articleRepository, ref: ref);
 });
 
@@ -82,4 +87,6 @@ class ArticlesController extends StateNotifier<bool> {
       showSnackBar(context, 'success!');
     });
   }
+
+  Stream<List<Article>> get articleFeed => _articlesRepository.articleFeed;
 }

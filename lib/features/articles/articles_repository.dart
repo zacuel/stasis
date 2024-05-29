@@ -18,14 +18,16 @@ class ArticlesRepository {
 
   CollectionReference get _articles => _firestore.collection('articles');
 
-
   FutureEitherFailureOr<void> postArticle(Article article) async {
     try {
       return right(_articles.doc(article.articleId).set(article.toMap()));
     } on FirebaseException catch (e) {
-       return left(Failure(e.message!));
+      return left(Failure(e.message!));
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
+
+  Stream<List<Article>> get articleFeed =>
+      _articles.snapshots().map((event) => event.docs.map((e) => Article.fromMap(e.data() as Map<String, dynamic>)).toList());
 }
