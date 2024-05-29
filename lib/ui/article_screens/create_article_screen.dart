@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../features/articles/articles_controller.dart';
 import '../../models/scope_enum.dart';
 import '../../utils/snackybar.dart';
 import '../../utils/text_validation.dart';
@@ -205,8 +206,9 @@ class _CreateArticleScreenState extends ConsumerState<CreateArticleScreen> {
           ],
         ),
       );
+
   Scaffold get _finalSection {
-    // final isLoading = ref.watch(articlesControllerProvider);
+    final isLoading = ref.watch(articlesControllerProvider);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -217,6 +219,7 @@ class _CreateArticleScreenState extends ConsumerState<CreateArticleScreen> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(' add authorship as you wish, anonymity is not guaranteed'),
             Row(
@@ -229,16 +232,44 @@ class _CreateArticleScreenState extends ConsumerState<CreateArticleScreen> {
             const Text('select which scope this concerns'),
             Column(
               children: [
-                RadioListTile<Scope>(value: Scope.local, groupValue: scope, onChanged: _changeScope, title: const Text('local'),),
+                RadioListTile<Scope>(
+                  value: Scope.local,
+                  groupValue: scope,
+                  onChanged: _changeScope,
+                  title: const Text('local'),
+                ),
                 RadioListTile<Scope>(value: Scope.state, groupValue: scope, onChanged: _changeScope, title: const Text('state')),
                 RadioListTile<Scope>(value: Scope.national, groupValue: scope, onChanged: _changeScope, title: const Text('national')),
-                RadioListTile<Scope>(value: Scope.global, groupValue: scope, onChanged: _changeScope,title: const Text('global')),
+                RadioListTile<Scope>(value: Scope.global, groupValue: scope, onChanged: _changeScope, title: const Text('global')),
               ],
             ),
+            isLoading ? const CircularProgressIndicator() : ElevatedButton(onPressed: _submitPost, child: const Text("submit submission")),
           ],
         ),
       ),
     );
+  }
+
+  void _submitPost() {
+    if (_isLink) {
+      ref.read(articlesControllerProvider.notifier).shareLink(
+            link: validTextValueReturner(_urlController),
+            context: context,
+            title: validTextValueReturner(_titleController),
+            authorName: authorName,
+            scope: scope,
+            content: validTextValue(_contentController) ? validTextValueReturner(_contentController) : null,
+          );
+    } else {
+      ref.read(articlesControllerProvider.notifier).shareText(
+            context: context,
+            title: validTextValueReturner(_titleController),
+            content: validTextValue(_contentController) ? validTextValueReturner(_contentController) : null,
+            authorName: authorName,
+            scope: scope,
+          );
+    }
+    Navigator.of(context).pop();
   }
 
   void _changeScope(Scope? newValue) {
