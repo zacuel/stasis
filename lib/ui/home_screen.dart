@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/articles/articles_controller.dart';
 import 'package:stasis/navigation.dart';
 import 'package:stasis/ui/common/error_loader.dart';
+import 'package:stasis/ui/widgets/article_tile.dart';
 
 import '../features/authentication/auth_controller.dart';
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   final article = data[index];
-                  return Text(article.title);
+                  return ArticleTile(article);
                 },
               );
             },
