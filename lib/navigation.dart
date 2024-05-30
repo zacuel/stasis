@@ -18,7 +18,7 @@ navigateToArticle(BuildContext context, Article article){
   ));
   } else {
           Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) =>  LinkArticleScreen(),
+    builder: (context) =>  LinkArticleScreen(article),
   ));
   }
 }
