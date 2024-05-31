@@ -37,4 +37,22 @@ class CommentsRepository {
       return left(Failure('something went wrong'));
     }
   }
+
+    Future<String> getUserComment(String articleId, String userId) async {
+    final document = await _articleComments(articleId).doc(userId).snapshots().first;
+    if (_isDocumentExist(document)) {
+      final data = document.data() as Map<String, dynamic>;
+      return data['commentText'];
+    } else {
+      return '';
+    }
+  }
+
+  bool _isDocumentExist(DocumentSnapshot document) {
+    if (document.exists) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

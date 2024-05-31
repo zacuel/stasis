@@ -18,6 +18,17 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
   bool _showComments = false, _addingComment = false, _showVoteButton = false;
   final _commentController = TextEditingController();
 
+    @override
+  void initState() {
+    super.initState();
+    _getUserComment();
+  }
+
+  void _getUserComment() async {
+    _commentController.text = await ref.read(commentsControllerProvider).getUserComment(widget.article.articleId);
+  }
+
+
   void _toggleMenu(String value) {
     setState(() {
       if (value == 'show') {
@@ -35,7 +46,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
   }
 
   void _addComment() async {
-    ref.read(commentsControllerProvider.notifier).addComment(context, widget.article.articleId, _commentController.text.trim());
+    ref.read(commentsControllerProvider).addComment(context, widget.article.articleId, _commentController.text.trim());
     setState(() {
       _addingComment = false;
     });
