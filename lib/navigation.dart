@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stasis/ui/article_screens/link_article_screen.dart';
-import 'package:stasis/ui/article_screens/text_article_screen.dart';
 
 import 'models/article.dart';
 import 'ui/article_screens/article_screen.dart';
@@ -13,12 +11,7 @@ navigateToCreateArticle(BuildContext context, String authorName) {
 }
 
 navigateToArticle(BuildContext context, Article article) {
-  // if(article.url == null){
   Navigator.of(context).push(MaterialPageRoute(
     builder: (context) => ArticleScreen(article),
   ));
-  // } else {
-  //         Navigator.of(context).push(MaterialPageRoute(
-  //   builder: (context) =>  LinkArticleScreen(article),
-  // ));
 }

@@ -5,7 +5,6 @@ import '../../../models/comment.dart';
 import '../../features/comments/comments_controller.dart';
 import '../common/error_loader.dart';
 
-
 class CommentsWidget extends ConsumerWidget {
   final String articleId;
   const CommentsWidget(this.articleId, {super.key});
@@ -53,8 +52,8 @@ class CommentsWidget extends ConsumerWidget {
                     // if (index == 0) {
                     //   return _commentText('swipe for next comment', '');
                     // } else {
-                      final Comment comment = comments[index];
-                      return _commentText(comment.commentText, comment.authorAlias);
+                    final Comment comment = comments[index];
+                    return _commentText(comment.commentText, comment.authorAlias);
                     // }
                   },
                 );
@@ -63,7 +62,6 @@ class CommentsWidget extends ConsumerWidget {
               }
             },
             error: (error, stackTrace) {
-
               return ErrorText(error.toString());
             },
             loading: () => const Loader(),

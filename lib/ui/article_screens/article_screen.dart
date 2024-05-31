@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/authentication/auth_controller.dart';
+import 'package:stasis/ui/article_screens/article_contents/link_content.dart';
+import 'package:stasis/ui/article_screens/article_contents/text_content.dart';
 
 import '../../features/comments/comments_controller.dart';
 import '../../models/article.dart';
@@ -79,7 +81,16 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
       body: Center(
         child: Column(
           children: [
-            Expanded(child: Placeholder()),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: widget.article.url == null
+                  ? TextContent(widget.article.content ?? widget.article.title)
+                  : LinkContent(
+                      url: widget.article.url!,
+                      content: widget.article.content,
+                    ),
+            )),
             if (_showComments) CommentsWidget(widget.article.articleId),
             if (_addingComment)
               AddCommentWidget(
