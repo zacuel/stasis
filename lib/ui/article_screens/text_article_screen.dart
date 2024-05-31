@@ -18,7 +18,22 @@ class _TextArticleScreenState extends ConsumerState<TextArticleScreen> {
       appBar: AppBar(
         title: Text(widget.article.title),
       ),
-      body: Text(widget.article.content ?? widget.article.title),
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: widget.article.content == null
+                  ? Text(
+                      widget.article.title,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    )
+                  : Text(widget.article.content!),
+            )),
+          ],
+        ),
+      ),
     );
   }
 }

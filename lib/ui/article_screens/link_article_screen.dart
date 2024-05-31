@@ -25,9 +25,29 @@ class _LinkArticleScreenState extends ConsumerState<LinkArticleScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.article.title),
+        actions: [
+          
+        ],
       ),
-      body: Column(
-        children: [TextButton(onPressed: _launchUrl, child: Text(widget.article.url!))],
+      body: Center(
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    TextButton(
+                      onPressed: _launchUrl,
+                      child: Text(widget.article.url!),
+                    ),
+                    if (widget.article.content != null) Text(widget.article.content!),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

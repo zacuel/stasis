@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stasis/navigation.dart';
 
 import '../../models/article.dart';
-
+//TODO make liked article tiles. 
 class ArticleTile extends StatelessWidget {
   final Article article;
   const ArticleTile(this.article, {super.key});
@@ -16,10 +16,16 @@ class ArticleTile extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navToArticle(context),
       child: Card(
-        child: Column(children: [
-          Text(article.title),
-          Text(article.authorName),
-        ]),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            Text(article.title),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(article.authorName),
+          ]),
+        ),
       ),
     );
   }
