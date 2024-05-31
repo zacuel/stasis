@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../models/comment.dart';
 import '../../utils/snackybar.dart';
 import '../authentication/auth_controller.dart';
 import 'comments_repository.dart';
+
+final articleCommentsProvider = StreamProvider.family<List<Comment>, String>((ref, String articleId) {
+  final commentRepository = ref.read(commentsRepositoryProvider);
+  return commentRepository.getArticleComments(articleId);
+});
+
 
 final commentsControllerProvider = Provider<CommentsController>((ref) {
   final commentsRepository = ref.read(commentsRepositoryProvider);
@@ -29,5 +36,10 @@ class CommentsController {
     final person = _ref.read(personProvider)!;
     final comment = await _commentRepository.getUserComment(articleId, person.uid);
     return comment;
+  }
+
+
+  Stream<List<Comment>> getArticleComments(String articleId) {
+    return _commentRepository.getArticleComments(articleId);
   }
 }

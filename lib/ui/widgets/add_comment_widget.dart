@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class AddCommentWidget extends StatelessWidget {
   final TextEditingController commentFieldController;
   final Function changeComment;
-  final Color color; 
+  final Color color;
   const AddCommentWidget({
     Key? key,
     required this.commentFieldController,
     required this.changeComment,
-    required this.color,
+    this.color = Colors.blue,
   }) : super(key: key);
 
   @override

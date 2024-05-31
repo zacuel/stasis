@@ -5,6 +5,7 @@ import 'package:stasis/features/authentication/auth_controller.dart';
 import '../../features/comments/comments_controller.dart';
 import '../../models/article.dart';
 import '../widgets/add_comment_widget.dart';
+import '../widgets/comments_widget.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
   final Article article;
@@ -18,7 +19,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
   bool _showComments = false, _addingComment = false, _showVoteButton = false;
   final _commentController = TextEditingController();
 
-    @override
+  @override
   void initState() {
     super.initState();
     _getUserComment();
@@ -28,19 +29,20 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
     _commentController.text = await ref.read(commentsControllerProvider).getUserComment(widget.article.articleId);
   }
 
-
   void _toggleMenu(String value) {
     setState(() {
       if (value == 'show') {
         _addingComment = false;
-        _showComments = true;
+        _showComments = !_showComments;
         _showVoteButton = false;
       } else if (value == 'add') {
         _showComments = false;
-        _addingComment = true;
+        _addingComment = !_addingComment;
         _showVoteButton = false;
       } else if (value == 'vote') {
         _showVoteButton = !_showVoteButton;
+        _addingComment = false;
+        _showComments = false;
       }
     });
   }
@@ -78,6 +80,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
         child: Column(
           children: [
             Expanded(child: Placeholder()),
+            if (_showComments) CommentsWidget(widget.article.articleId),
             if (_addingComment)
               AddCommentWidget(
                 color: person.favoriteColor,

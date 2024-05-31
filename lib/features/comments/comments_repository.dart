@@ -55,4 +55,8 @@ class CommentsRepository {
       return false;
     }
   }
+
+    Stream<List<Comment>> getArticleComments(String articleId) {
+    return _articleComments(articleId).snapshots().map((event) => event.docs.map((e) => Comment.fromMap(e.data() as Map<String, dynamic>)).toList());
+  }
 }
