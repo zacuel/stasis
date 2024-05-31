@@ -27,8 +27,20 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
     _getUserComment();
   }
 
+void _vote(){
+  
+}
+  
+
   void _getUserComment() async {
     _commentController.text = await ref.read(commentsControllerProvider).getUserComment(widget.article.articleId);
+  }
+
+    void _addComment() async {
+    ref.read(commentsControllerProvider).addComment(context, widget.article.articleId, _commentController.text.trim());
+    setState(() {
+      _addingComment = false;
+    });
   }
 
   void _toggleMenu(String value) {
@@ -49,12 +61,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
     });
   }
 
-  void _addComment() async {
-    ref.read(commentsControllerProvider).addComment(context, widget.article.articleId, _commentController.text.trim());
-    setState(() {
-      _addingComment = false;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
