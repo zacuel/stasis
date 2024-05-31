@@ -26,7 +26,17 @@ class _LinkArticleScreenState extends ConsumerState<LinkArticleScreen> {
       appBar: AppBar(
         title: Text(widget.article.title),
         actions: [
-          
+          PopupMenuButton(
+            // onSelected: (value) => _toggleMenu(value, isLiked),
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem(value: 'show', child: Text("show responses")),
+                // PopupMenuItem(value: 'add', child: Text(_commentController.text == "" ? "respond" : "change response")),
+                const PopupMenuItem(value: 'vote', child: Text("show vote button")),
+              ];
+            },
+            icon: const Icon(Icons.menu),
+          ),
         ],
       ),
       body: Center(
