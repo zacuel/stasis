@@ -30,4 +30,26 @@ class ArticlesRepository {
 
   Stream<List<Article>> get articleFeed =>
       _articles.snapshots().map((event) => event.docs.map((e) => Article.fromMap(e.data() as Map<String, dynamic>)).toList());
+
+  Stream<Article> streamArticleById(String articleId) => _articles.doc(articleId).snapshots().map(
+        (event) => Article.fromMap(event.data() as Map<String, dynamic>),
+      );
+
+  void downvote(Article article, String userId) async {
+    if (article.upvoteIds.contains(userId)) {
+      await _articles.doc(article.articleId).update({
+        'upvoteIds': FieldValue.arrayRemove([userId]),
+        'score': article.score - 1,
+      });
+    }
+  }
+
+    void upvote(Article article, String userId) async {
+    if (!article.upvoteIds.contains(userId)) {
+      await _articles.doc(article.articleId).update({
+        'upvoteIds': FieldValue.arrayUnion([userId]),
+        'score': article.score + 1,
+      });
+    }
+  }
 }

@@ -7,9 +7,11 @@ import '../../models/article.dart';
 import '../../models/scope_enum.dart';
 import '../../utils/snackybar.dart';
 import '../authentication/auth_controller.dart';
+import '../authentication/auth_repository.dart';
+import 'favorite_articles_provider.dart';
 
 final articleFeedProvider = StreamProvider<List<Article>>((ref) {
-  final articlesController = ref.read(articlesControllerProvider.notifier); 
+  final articlesController = ref.read(articlesControllerProvider.notifier);
   return articlesController.articleFeed;
 });
 
@@ -52,7 +54,7 @@ class ArticlesController extends StateNotifier<bool> {
     final result = await _articlesRepository.postArticle(article);
     state = false;
     result.fold((l) => showSnackBar(context, l.message), (r) {
-      // _ref.read(favoriteArticlesProvider.notifier).addArticleUponCreation(article.articleId);
+      _ref.read(favoriteArticlesProvider.notifier).addArticleUponCreation(article.articleId);
       showSnackBar(context, 'success!');
     });
   }
@@ -83,10 +85,31 @@ class ArticlesController extends StateNotifier<bool> {
     final result = await _articlesRepository.postArticle(article);
     state = false;
     result.fold((l) => showSnackBar(context, l.message), (r) {
-      // _ref.read(favoriteArticlesProvider.notifier).addArticleUponCreation(article.articleId);
+      _ref.read(favoriteArticlesProvider.notifier).addArticleUponCreation(article.articleId);
       showSnackBar(context, 'success!');
     });
   }
 
   Stream<List<Article>> get articleFeed => _articlesRepository.articleFeed;
+
+  Stream<Article> streamArticleById(String articleId) => _articlesRepository.streamArticleById(articleId);
+
+  void downvoteFromArticleId(String articleId) async {
+    //This establishes a circular sort of relationship with the repository.
+    final article = await streamArticleById(articleId).first;
+    _downvote(article);
+  }
+
+  void _downvote(Article article) {
+    final person = _ref.read(personProvider)!;
+    _articlesRepository.downvote(article, person.uid);
+    // could supply authRepo to class instead
+    _ref.read(authRepositoryProvider).downvote(person.uid, article.articleId);
+  }
+
+  void upvoteWithOneStep(String articleId) async {
+    final article = await streamArticleById(articleId).first;
+    final person = _ref.read(personProvider)!;
+    _articlesRepository.upvote(article, person.uid);
+  }
 }
