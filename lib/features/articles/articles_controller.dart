@@ -111,5 +111,6 @@ class ArticlesController extends StateNotifier<bool> {
     final article = await streamArticleById(articleId).first;
     final person = _ref.read(personProvider)!;
     _articlesRepository.upvote(article, person.uid);
+    _ref.read(authRepositoryProvider).upvote(person, article.articleId);
   }
 }

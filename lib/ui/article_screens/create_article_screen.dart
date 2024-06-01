@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stasis/features/authentication/auth_controller.dart';
 
 import '../../features/articles/articles_controller.dart';
 import '../../models/scope_enum.dart';
@@ -15,8 +16,8 @@ enum PageSelector {
 }
 
 class CreateArticleScreen extends ConsumerStatefulWidget {
-  final String authorName;
-  const CreateArticleScreen(this.authorName, {super.key});
+
+  const CreateArticleScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CreateArticleScreenState();
@@ -35,7 +36,7 @@ class _CreateArticleScreenState extends ConsumerState<CreateArticleScreen> {
   @override
   void initState() {
     super.initState();
-    authorName = widget.authorName;
+    authorName = ref.read(personProvider)!.alias;
   }
 
   _changePage(PageSelector newValue) {

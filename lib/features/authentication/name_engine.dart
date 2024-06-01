@@ -1,7 +1,7 @@
 import 'dart:math';
 
-const List<String> adjectives = ['Absolute', 'Dynamic', 'Penultimate', 'Unbothered', 'Stoic', 'Unregulated', ];
-const List<String> nouns = ['Firefighter', 'Lavalamp', 'Practitioner', 'Olive', 'Haberdasher', "Larynx"];
+const List<String> adjectives = ['Absolute', 'Dynamic', 'Penultimate', 'Unbothered', 'Stoic', 'Unregulated', 'Abstract', 'Unique','Venomous', "Phoenician"];
+const List<String> nouns = ['Firefighter', 'Lavalamp', 'Practitioner', 'Olive', 'Haberdasher', "Larynx", "Allegory", "Werewolf", "Underdog", "Introspection" ];
 
 class NameEngine {
   NameEngine._();

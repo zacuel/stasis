@@ -4,9 +4,9 @@ import 'models/article.dart';
 import 'ui/article_screens/article_screen.dart';
 import 'ui/article_screens/create_article_screen.dart';
 
-navigateToCreateArticle(BuildContext context, String authorName) {
+navigateToCreateArticle(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => CreateArticleScreen(authorName),
+    builder: (context) => const CreateArticleScreen(),
   ));
 }
 

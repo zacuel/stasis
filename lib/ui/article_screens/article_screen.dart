@@ -4,8 +4,11 @@ import 'package:stasis/features/authentication/auth_controller.dart';
 import 'package:stasis/ui/article_screens/article_contents/link_content.dart';
 import 'package:stasis/ui/article_screens/article_contents/text_content.dart';
 
+import '../../constance.dart';
+import '../../features/articles/favorite_articles_provider.dart';
 import '../../features/comments/comments_controller.dart';
 import '../../models/article.dart';
+import '../../utils/limit_hit_dialogue.dart';
 import '../widgets/add_comment_widget.dart';
 import '../widgets/comments_widget.dart';
 
@@ -56,9 +59,19 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
     });
   }
 
+  void _vote(int listLength, isDownVoting) {
+    if (listLength < Constance.maxUpvotes || isDownVoting) {
+      ref.read(favoriteArticlesProvider.notifier).toggleArticleFavoriteStatus(widget.article.articleId);
+    } else {
+      showDialog(context: context, builder: postLimitHitDialogue);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final person = ref.watch(personProvider)!;
+    // final person = ref.watch(personProvider)!;
+    final favoriteArticleIds = ref.watch(favoriteArticlesProvider);
+    final isLiked = favoriteArticleIds.contains(widget.article.articleId);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.article.title),
@@ -94,14 +107,24 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
             if (_showComments) CommentsWidget(widget.article.articleId),
             if (_addingComment)
               AddCommentWidget(
-                color: person.favoriteColor,
+                // color: person.favoriteColor,
                 commentFieldController: _commentController,
                 changeComment: _addComment,
               ),
           ],
         ),
       ),
-      floatingActionButton: _showVoteButton ? FloatingActionButton(onPressed: () {}) : null,
+      floatingActionButton: _showVoteButton
+          ? FloatingActionButton(
+              onPressed: () {
+                _vote(favoriteArticleIds.length, isLiked);
+                setState(() {
+                  _showVoteButton = false;
+                });
+              },
+              child: Icon(isLiked ? Icons.horizontal_rule : Icons.thumb_up_sharp),
+            )
+          : null,
     );
   }
 }

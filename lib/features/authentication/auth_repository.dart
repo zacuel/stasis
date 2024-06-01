@@ -72,4 +72,12 @@ class AuthRepository {
       'favoriteArticleIds': FieldValue.arrayRemove([articleId]),
     });
   }
+
+    void upvote(Person person, String articleId) async {
+    if (!person.favoriteArticleIds.contains(articleId)) {
+      await _people.doc(person.uid).update({
+        'favoriteArticleIds': FieldValue.arrayUnion([articleId]),
+      });
+    }
+  }
 }

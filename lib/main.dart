@@ -7,6 +7,7 @@ import 'package:stasis/ui/auth/auth_screen.dart';
 import 'package:stasis/ui/common/error_loader.dart';
 import 'package:stasis/ui/home_screen.dart';
 
+import 'features/articles/favorite_articles_provider.dart';
 import 'models/person.dart';
 import 'utils/firebase_utils/firebase_options.dart';
 
@@ -28,6 +29,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   void getData(User data) async {
     person = await ref.read(authControllerProvider.notifier).getPersonData(data.uid).first;
     ref.read(personProvider.notifier).update((state) => person);
+    ref.read(favoriteArticlesProvider.notifier).createListState(person!.favoriteArticleIds);
     setState(() {});
   }
 
