@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stasis/navigation.dart';
 
 import '../../features/authentication/auth_controller.dart';
-
 
 class PersonalPage extends ConsumerStatefulWidget {
   const PersonalPage({super.key});
@@ -35,14 +35,13 @@ class _PersonalPageState extends ConsumerState<PersonalPage> {
             //   title: const Text("Pick Your Color(not your nose)"),
             // ),
             ListTile(
-              onTap: () =>(),
+              onTap: () => navigateToFavFeed(context),
               title: const Text("view your selections"),
             ),
             // ListTile(
             //   onTap: () => navigateToNameChange(context, person.alias),
             //   title: const Text('change your username'),
             // ),
-
           ],
         ),
       ),

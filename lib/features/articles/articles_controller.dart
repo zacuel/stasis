@@ -10,6 +10,11 @@ import '../authentication/auth_controller.dart';
 import '../authentication/auth_repository.dart';
 import 'favorite_articles_provider.dart';
 
+final articleByIdProvider = StreamProvider.family<Article, String>((ref, String articleId) {
+  final articlesController = ref.read(articlesControllerProvider.notifier);
+  return articlesController.streamArticleById(articleId);
+});
+
 final articleFeedProvider = StreamProvider<List<Article>>((ref) {
   final articlesController = ref.read(articlesControllerProvider.notifier);
   return articlesController.articleFeed;

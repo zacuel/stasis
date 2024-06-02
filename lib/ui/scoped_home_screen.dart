@@ -62,7 +62,10 @@ class _ScopedHomeScreenState extends ConsumerState<ScopedHomeScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.deblur), label: "world", backgroundColor: Colors.blue),
           ],
         ),
-        appBar: AppBar(actions: [IconButton(onPressed: () => _goToCreateArticle(favList.length), icon: const Icon(Icons.add_box_outlined))]),
+        appBar: AppBar(
+          actions: [IconButton(onPressed: () => _goToCreateArticle(favList.length), icon: const Icon(Icons.add_box_outlined))],
+          leading: IconButton(onPressed: () => navigateToPersonal(context), icon: const Icon(Icons.person)),
+        ),
         body: ref.watch(articleFeedProvider).when(
             data: (data) {
               List<Article> articles;
