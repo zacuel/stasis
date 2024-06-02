@@ -9,6 +9,7 @@ import 'package:stasis/ui/home_screen.dart';
 
 import 'features/articles/favorite_articles_provider.dart';
 import 'models/person.dart';
+import 'ui/scoped_home_screen.dart';
 import 'utils/firebase_utils/firebase_options.dart';
 
 void main() async {
@@ -43,7 +44,7 @@ class _MyAppState extends ConsumerState<MyApp> {
             if (data != null) {
               getData(data);
               if (person != null) {
-                return const HomeScreen();
+                return const ScopedHomeScreen();
               }
             }
             return const AuthScreen();
