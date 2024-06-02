@@ -50,4 +50,13 @@ class AuthController extends StateNotifier<bool> {
   }
 
     Stream<Person> getPersonData(String uid) => _authRepository.getPersonData(uid);
+
+      void changeFavoriteColor(Color newColor) {
+    final person = _ref.read(personProvider)!;
+    _authRepository.changeFavoriteColor(person.uid, newColor.value);
+  }
+  void changeAlias(String newUsername) {
+    final person = _ref.read(personProvider)!;
+    _authRepository.changeUserName(person.uid, newUsername);
+  }
 }

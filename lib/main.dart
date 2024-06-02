@@ -27,6 +27,7 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   Person? person;
+  var userColorScheme = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
   void getData(User data) async {
     person = await ref.read(authControllerProvider.notifier).getPersonData(data.uid).first;
     ref.read(personProvider.notifier).update((state) => person);
@@ -39,11 +40,15 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "stasis",
+      theme: ThemeData(colorScheme: userColorScheme),
       home: ref.watch(authStateChangeProvider).when(
           data: (data) {
             if (data != null) {
               getData(data);
               if (person != null) {
+                setState(() {
+                  userColorScheme = ColorScheme.fromSeed(seedColor: person!.favoriteColor);
+                });
                 return const ScopedHomeScreen();
               }
             }

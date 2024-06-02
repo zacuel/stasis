@@ -80,4 +80,12 @@ class AuthRepository {
       });
     }
   }
+
+    void changeFavoriteColor(String uid, int colorValue) {
+    _people.doc(uid).update({'favoriteColor': colorValue});
+  }
+
+  void changeUserName(String uid, String username) {
+    _people.doc(uid).update({'alias': username});
+  }
 }

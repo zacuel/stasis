@@ -30,10 +30,10 @@ class _PersonalPageState extends ConsumerState<PersonalPage> {
       body: Center(
         child: Column(
           children: [
-            // ListTile(
-            //   onTap: () {}
-            //   title: const Text("Pick Your Color(not your nose)"),
-            // ),
+            ListTile(
+              onTap: () => navigateToColorPicking(context),
+              title: const Text("Pick Your Color(not your nose)"),
+            ),
             ListTile(
               onTap: () => navigateToFavFeed(context),
               title: const Text("view your selections"),

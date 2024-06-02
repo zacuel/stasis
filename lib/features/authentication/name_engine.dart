@@ -12,6 +12,9 @@ const List<String> adjectives = [
   'Venomous',
   'Unglued',
   "Incoherant",
+  "Indignant",
+  "Charming",
+  "Convoluted",
 ];
 const List<String> nouns = [
   'Firefighter',
@@ -28,6 +31,8 @@ const List<String> nouns = [
   "Antagonist",
   "Metaphor",
   "Sabotage",
+  "Alibi",
+  "Continuum",
 ];
 
 class NameEngine {
