@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stasis/ui/home_screen.dart';
+import 'package:stasis/ui/chrono_screen.dart';
 import 'package:stasis/ui/personal/favorites_feed.dart';
 import 'package:stasis/ui/personal/personal_page.dart';
 
@@ -56,5 +56,5 @@ navigateToNameChange(BuildContext context, String username) {
 }
 
 navigateToSortedFeed(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomeScreen()));
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ChronoScreen()));
 }

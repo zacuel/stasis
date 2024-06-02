@@ -17,9 +17,12 @@ class LikedArticleTile extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(border: Border.all(color: borderColor, width: 5)),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(children: [
             Text(article.title),
+            const SizedBox(
+              height: 8,
+            ),
             Text(article.authorName),
           ]),
         ),

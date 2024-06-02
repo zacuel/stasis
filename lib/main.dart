@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/authentication/auth_controller.dart';
 import 'package:stasis/ui/auth/auth_screen.dart';
 import 'package:stasis/ui/common/error_loader.dart';
-import 'package:stasis/ui/home_screen.dart';
+import 'package:stasis/ui/chrono_screen.dart';
 
 import 'features/articles/favorite_articles_provider.dart';
 import 'models/person.dart';

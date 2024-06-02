@@ -76,6 +76,7 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
       appBar: AppBar(
         title: Text(widget.article.title),
         actions: [
+          if (isLiked) const Icon(Icons.star),
           PopupMenuButton(
             onSelected: (value) => _toggleMenu(
               value,

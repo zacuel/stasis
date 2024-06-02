@@ -10,15 +10,17 @@ import '../constance.dart';
 import '../features/articles/favorite_articles_provider.dart';
 import '../features/authentication/auth_controller.dart';
 import '../utils/limit_hit_dialogue.dart';
+import 'widgets/article_tiles/shaded/shaded_article_tile.dart';
+import 'widgets/article_tiles/shaded/shaded_liked_article_tile.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key});
+class ChronoScreen extends ConsumerStatefulWidget {
+  const ChronoScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ChronoScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _ChronoScreenState extends ConsumerState<ChronoScreen> {
   bool newestFirst = true;
   void _goToCreateArticle(int listLength) {
     if (listLength < Constance.maxUpvotes) {
@@ -48,9 +50,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   final article = data[index];
                   final isFav = favList.contains(article.articleId);
                   if (isFav) {
-                    return LikedArticleTile(article);
+                    return ShadedLikedArticleTile(article);
                   } else {
-                    return ArticleTile(article);
+                    return ShadedArticleTile(article);
                   }
                 },
               );

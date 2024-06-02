@@ -56,39 +56,53 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            controller: _emailController,
-            decoration: const InputDecoration(label: Text('email')),
-          ),
-          TextField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(label: Text('password')),
-          ),
-          if (_isNewUser)
-            TextField(
-              controller: _checkPassController,
-              obscureText: true,
-              decoration: const InputDecoration(label: Text('check password')),
-            ),
-          if (_isNewUser)
-            Column(
-              children: [
-                const Text('given username, can change inside'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(label: Text('email')),
+              ),
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: const InputDecoration(label: Text('password')),
+              ),
+              if (_isNewUser)
+                TextField(
+                  controller: _checkPassController,
+                  obscureText: true,
+                  decoration: const InputDecoration(label: Text('check password')),
+                ),
+              if (_isNewUser)
+                Column(
                   children: [
-                    Text(_username),
-                    ElevatedButton(onPressed: _changeUserName, child: const Text('change')),
+                    const Text('username can be customized inside'),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(_username),
+                        ElevatedButton(onPressed: _changeUserName, child: const Text('change')),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          const SizedBox(
-            height: 20,
+              const SizedBox(
+                height: 20,
+              ),
+              Container(child: isLoading ? const Loader() : OutlinedButton(onPressed: _proceed, child: const Text('proceed'))),
+              const SizedBox(
+                height: 20,
+              ),
+              TextButton(onPressed: _changeModes, child: const Text('log-in/sign-up instead'))
+            ],
           ),
-          Container(child: isLoading ? const Loader() : OutlinedButton(onPressed: _proceed, child: const Text('proceed'))),
-          TextButton(onPressed: _changeModes, child: const Text('log-in/sign-up instead'))
+          const SizedBox(
+            height: 150,
+          ),
         ],
       ),
     );

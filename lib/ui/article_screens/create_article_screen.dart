@@ -16,7 +16,6 @@ enum PageSelector {
 }
 
 class CreateArticleScreen extends ConsumerStatefulWidget {
-
   const CreateArticleScreen({super.key});
 
   @override
@@ -241,7 +240,7 @@ class _CreateArticleScreenState extends ConsumerState<CreateArticleScreen> {
                 ),
                 RadioListTile<Scope>(value: Scope.state, groupValue: scope, onChanged: _changeScope, title: const Text('state')),
                 RadioListTile<Scope>(value: Scope.national, groupValue: scope, onChanged: _changeScope, title: const Text('national')),
-                RadioListTile<Scope>(value: Scope.global, groupValue: scope, onChanged: _changeScope, title: const Text('global')),
+                RadioListTile<Scope>(value: Scope.global, groupValue: scope, onChanged: _changeScope, title: const Text('world')),
               ],
             ),
             isLoading ? const CircularProgressIndicator() : ElevatedButton(onPressed: _submitPost, child: const Text("submit submission")),

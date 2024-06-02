@@ -24,7 +24,8 @@ class FavListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: getColor(article),
+      
+      tileColor: getColor(article).withOpacity(.5),
       title: Text(article.title),
       onTap: () => navigateToArticle(context, article),
     );
