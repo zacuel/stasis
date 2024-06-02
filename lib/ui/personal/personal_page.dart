@@ -38,10 +38,10 @@ class _PersonalPageState extends ConsumerState<PersonalPage> {
               onTap: () => navigateToFavFeed(context),
               title: const Text("view your selections"),
             ),
-            // ListTile(
-            //   onTap: () => navigateToNameChange(context, person.alias),
-            //   title: const Text('change your username'),
-            // ),
+            ListTile(
+              onTap: () => navigateToNameChange(context, person.alias),
+              title: const Text('change your username'),
+            ),
           ],
         ),
       ),

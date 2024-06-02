@@ -10,6 +10,16 @@ import '../authentication/auth_controller.dart';
 import '../authentication/auth_repository.dart';
 import 'favorite_articles_provider.dart';
 
+final sortedArticleProvider = StreamProvider.family<List<Article>, bool>((ref, bool newFirst) {
+  final articlesController = ref.read(articlesControllerProvider.notifier);
+  if (newFirst) {
+    return articlesController.newToOldArticles;
+  } else {
+      return articlesController.oldToNewArticles;
+  }
+
+});
+
 final articleByIdProvider = StreamProvider.family<Article, String>((ref, String articleId) {
   final articlesController = ref.read(articlesControllerProvider.notifier);
   return articlesController.streamArticleById(articleId);
@@ -96,6 +106,8 @@ class ArticlesController extends StateNotifier<bool> {
   }
 
   Stream<List<Article>> get articleFeed => _articlesRepository.articleFeed;
+  Stream<List<Article>> get oldToNewArticles => _articlesRepository.oldestToNewest;
+  Stream<List<Article>> get newToOldArticles => _articlesRepository.newestToOldest;
 
   Stream<Article> streamArticleById(String articleId) => _articlesRepository.streamArticleById(articleId);
 

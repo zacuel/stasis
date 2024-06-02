@@ -19,6 +19,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool newestFirst = true;
   void _goToCreateArticle(int listLength) {
     if (listLength < Constance.maxUpvotes) {
       navigateToCreateArticle(context);
@@ -32,8 +33,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final person = ref.watch(personProvider)!;
     final favList = ref.watch(favoriteArticlesProvider);
     return Scaffold(
-        appBar: AppBar(actions: [IconButton(onPressed: () => _goToCreateArticle(favList.length), icon: const Icon(Icons.add_box_outlined))]),
-        body: ref.watch(articleFeedProvider).when(
+        appBar: AppBar(title: Text(newestFirst ? "newest first" : "oldest first"), actions: [
+          IconButton(
+              onPressed: () {
+                newestFirst = !newestFirst;
+              },
+              icon: const Icon(Icons.format_line_spacing))
+        ]),
+        body: ref.watch(sortedArticleProvider(newestFirst)).when(
             data: (data) {
               return ListView.builder(
                 itemCount: data.length,

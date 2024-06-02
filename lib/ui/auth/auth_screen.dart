@@ -54,7 +54,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     final isLoading = ref.watch(authControllerProvider);
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextField(
             controller: _emailController,
@@ -84,6 +84,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 ),
               ],
             ),
+          const SizedBox(
+            height: 20,
+          ),
           Container(child: isLoading ? const Loader() : OutlinedButton(onPressed: _proceed, child: const Text('proceed'))),
           TextButton(onPressed: _changeModes, child: const Text('log-in/sign-up instead'))
         ],

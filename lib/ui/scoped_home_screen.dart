@@ -22,6 +22,7 @@ class ScopedHomeScreen extends ConsumerStatefulWidget {
 
 class _ScopedHomeScreenState extends ConsumerState<ScopedHomeScreen> {
   int _currentTabIndex = 0;
+  String screenTitle = "local";
   void _goToCreateArticle(int listLength) {
     if (listLength < Constance.maxUpvotes) {
       navigateToCreateArticle(context);
@@ -41,6 +42,18 @@ class _ScopedHomeScreenState extends ConsumerState<ScopedHomeScreen> {
           onTap: (value) {
             setState(() {
               _currentTabIndex = value;
+              if (value == 0) {
+                screenTitle = 'local';
+              }
+              if (value == 1) {
+                screenTitle = 'state';
+              }
+              if (value == 2) {
+                screenTitle = 'national';
+              }
+              if (value == 3) {
+                screenTitle = 'world';
+              }
             });
           },
           items: const [
@@ -63,7 +76,15 @@ class _ScopedHomeScreenState extends ConsumerState<ScopedHomeScreen> {
           ],
         ),
         appBar: AppBar(
-          actions: [IconButton(onPressed: () => _goToCreateArticle(favList.length), icon: const Icon(Icons.add_box_outlined))],
+          centerTitle: true,
+          title: Text(screenTitle),
+          actions: [
+            IconButton(onPressed: () => navigateToSortedFeed(context), icon: const Icon(Icons.format_line_spacing)),
+            IconButton(
+              onPressed: () => _goToCreateArticle(favList.length),
+              icon: const Icon(Icons.add_box_outlined),
+            ),
+          ],
           leading: IconButton(onPressed: () => navigateToPersonal(context), icon: const Icon(Icons.person)),
         ),
         body: ref.watch(articleFeedProvider).when(
