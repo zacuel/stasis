@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/articles/articles_controller.dart';
 import 'package:stasis/navigation.dart';
 import 'package:stasis/ui/common/error_loader.dart';
-import 'package:stasis/ui/widgets/article_tile.dart';
-import 'package:stasis/ui/widgets/liked_article_tile.dart';
+import 'package:stasis/ui/widgets/article_tiles/article_tile.dart';
+import 'package:stasis/ui/widgets/article_tiles/liked_article_tile.dart';
 
 import '../constance.dart';
 import '../features/articles/favorite_articles_provider.dart';

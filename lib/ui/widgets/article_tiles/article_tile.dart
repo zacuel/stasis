@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stasis/navigation.dart';
 
-import '../../models/article.dart';
+import '../../../models/article.dart';
 //TODO make liked article tiles. 
 class ArticleTile extends StatelessWidget {
   final Article article;

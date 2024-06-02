@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../models/comment.dart';
-import '../../features/comments/comments_controller.dart';
-import '../common/error_loader.dart';
+import '../../../../models/comment.dart';
+import '../../../features/comments/comments_controller.dart';
+import '../../common/error_loader.dart';
 
 class CommentsWidget extends ConsumerWidget {
   final String articleId;

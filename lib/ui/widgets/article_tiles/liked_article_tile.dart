@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stasis/features/authentication/auth_controller.dart';
 import 'package:stasis/navigation.dart';
 
-import '../../models/article.dart';
+import '../../../models/article.dart';
 
 class LikedArticleTile extends ConsumerWidget {
   final Article article;

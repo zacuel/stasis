@@ -10,8 +10,8 @@ import '../models/scope_enum.dart';
 import '../navigation.dart';
 import '../utils/limit_hit_dialogue.dart';
 import 'common/error_loader.dart';
-import 'widgets/article_tile.dart';
-import 'widgets/liked_article_tile.dart';
+import 'widgets/article_tiles/article_tile.dart';
+import 'widgets/article_tiles/liked_article_tile.dart';
 
 class ScopedHomeScreen extends ConsumerStatefulWidget {
   const ScopedHomeScreen({super.key});

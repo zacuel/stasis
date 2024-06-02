@@ -9,8 +9,8 @@ import '../../features/articles/favorite_articles_provider.dart';
 import '../../features/comments/comments_controller.dart';
 import '../../models/article.dart';
 import '../../utils/limit_hit_dialogue.dart';
-import '../widgets/add_comment_widget.dart';
-import '../widgets/comments_widget.dart';
+import '../widgets/comment_widgets/add_comment_widget.dart';
+import '../widgets/comment_widgets/comments_widget.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
   final Article article;

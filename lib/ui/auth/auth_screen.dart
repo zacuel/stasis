@@ -13,7 +13,7 @@ class AuthScreen extends ConsumerStatefulWidget {
 }
 
 class _AuthScreenState extends ConsumerState<AuthScreen> {
-  bool _isNewUser = true;
+  bool _isNewUser = false;
   late String _username;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
